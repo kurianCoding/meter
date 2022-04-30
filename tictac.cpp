@@ -39,6 +39,24 @@ bool legal(int a, int b,int table[3][3]){
 	return true;
 }
 
+bool is_win(int player,int table[MAX_COL][MAX_ROW]){
+	loop(i,MAX_COL){
+		int col_score=0,row_score=0;
+		loop(j,MAX_ROW){
+			if (table[i][j]==player){
+				row_score+=1;
+			}
+			if (table[j][i]==player){
+				col_score+=1;
+			}
+			if (row_score==3||col_score==3){
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 int main(){
 	// a function to draw the tictac toe table
 	// a logic to decide if a side won
@@ -52,8 +70,16 @@ int main(){
 		if(legal(a,b,table)){
 			if (i%2==0){
 				table[a][b]=1;
+				if (is_win(1,table)){
+					cout<<"winner"<<endl;
+					return 0;
+				}
 			}else{
 				table[a][b]=2;
+				if (is_win(2,table)){
+					cout<<"winner"<<endl;		
+					return 0;
+				}
 			}
 			draw_table(3,3,table);
 		}else{
